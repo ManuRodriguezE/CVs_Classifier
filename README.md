@@ -46,7 +46,6 @@ The repository is structured as follows:
 ├── aws-config/               # AWS Glue and SageMaker configurations
 ├── visualizations/           # Scripts or tools for creating dashboards
 ├── README.md                 # Project documentation
-└── LICENSE                   # Project license
 ```
 
 ---
