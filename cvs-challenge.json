@@ -1,0 +1,582 @@
+{
+	"jobConfig": {
+		"name": "cvs-challenge",
+		"description": "",
+		"role": "arn:aws:iam::730335557726:role/cvs-test-challenge",
+		"command": "glueetl",
+		"version": "5.0",
+		"runtime": null,
+		"workerType": "G.1X",
+		"numberOfWorkers": 2,
+		"maxCapacity": 2,
+		"jobRunQueuingEnabled": false,
+		"maxRetries": 0,
+		"timeout": 480,
+		"maxConcurrentRuns": 1,
+		"security": "none",
+		"scriptName": "cvs-challenge.py",
+		"scriptLocation": "s3://aws-glue-assets-730335557726-us-east-1/scripts/",
+		"language": "python-3",
+		"spark": false,
+		"sparkConfiguration": "standard",
+		"jobParameters": [],
+		"tags": [],
+		"jobMode": "VISUAL_MODE",
+		"createdOn": "2024-12-06T04:52:19.379Z",
+		"developerMode": false,
+		"connectionsList": [
+			"Sqlserver connection"
+		],
+		"temporaryDirectory": "s3://aws-glue-assets-730335557726-us-east-1/temporary/",
+		"glueHiveMetastore": true,
+		"etlAutoTuning": false,
+		"bookmark": "job-bookmark-disable",
+		"sparkPath": "s3://aws-glue-assets-730335557726-us-east-1/sparkHistoryLogs/",
+		"flexExecution": false,
+		"minFlexWorkers": null,
+		"maintenanceWindow": null,
+		"pythonPath": ""
+	},
+	"dag": {
+		"node-1733463508294": {
+			"nodeId": "node-1733463508294",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [
+				"node-1733463014466"
+			],
+			"name": "Amazon S3",
+			"generatedNodeName": "AmazonS3_node1733463508294",
+			"classification": "DataSink",
+			"type": "S3",
+			"streamingBatchInterval": 100,
+			"format": "glueparquet",
+			"compression": "snappy",
+			"path": "s3://challenge-cvs-test-target",
+			"partitionKeys": [],
+			"schemaChangePolicy": {
+				"enableUpdateCatalog": true,
+				"updateBehavior": "UPDATE_IN_DATABASE",
+				"database": "cvs_challenge",
+				"table": "dbVacants"
+			},
+			"updateCatalogOptions": "schemaAndPartitions",
+			"autoDataQuality": {
+				"isEnabled": true,
+				"evaluationContext": "EvaluateDataQuality_node1733460406505"
+			},
+			"calculatedType": "",
+			"codeGenVersion": 2
+		},
+		"node-1733463014466": {
+			"nodeId": "node-1733463014466",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [
+				"node-1733462978624"
+			],
+			"name": "SQL Query Vacants",
+			"generatedNodeName": "SQLQueryVacants_node1733463014466",
+			"classification": "Transform",
+			"type": "SqlCode",
+			"sqlAliases": [
+				{
+					"from": "node-1733462978624",
+					"alias": "dboVacantes"
+				}
+			],
+			"outputSchemas": [
+				[
+					{
+						"key": "ID_Vacante",
+						"fullPath": [
+							"ID_Vacante"
+						],
+						"type": "int",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "Titulo_Puesto",
+						"fullPath": [
+							"Titulo_Puesto"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "Descripcion",
+						"fullPath": [
+							"Descripcion"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "Requisitos",
+						"fullPath": [
+							"Requisitos"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					}
+				]
+			],
+			"parentsValid": true,
+			"calculatedType": "",
+			"sqlQuery": "select * from dboVacantes",
+			"codeGenVersion": 2
+		},
+		"node-1733462847564": {
+			"nodeId": "node-1733462847564",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [
+				"node-1733460580136"
+			],
+			"name": "SQL Query Cadidate",
+			"generatedNodeName": "SQLQueryCadidate_node1733462847564",
+			"classification": "Transform",
+			"type": "SqlCode",
+			"sqlAliases": [
+				{
+					"from": "node-1733460580136",
+					"alias": "dboCandidatos"
+				}
+			],
+			"outputSchemas": [
+				[
+					{
+						"key": "ID_Candidato",
+						"fullPath": [
+							"ID_Candidato"
+						],
+						"type": "int",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "Nombre",
+						"fullPath": [
+							"Nombre"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "Email",
+						"fullPath": [
+							"Email"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "Telefono",
+						"fullPath": [
+							"Telefono"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "Direccion",
+						"fullPath": [
+							"Direccion"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					}
+				]
+			],
+			"parentsValid": true,
+			"calculatedType": "",
+			"sqlQuery": "select * from dboCandidatos",
+			"codeGenVersion": 2
+		},
+		"node-1733462954284": {
+			"nodeId": "node-1733462954284",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [
+				"node-1733462916467"
+			],
+			"name": "SQL Query WorkExp",
+			"generatedNodeName": "SQLQueryWorkExp_node1733462954284",
+			"classification": "Transform",
+			"type": "SqlCode",
+			"sqlAliases": [
+				{
+					"from": "node-1733462916467",
+					"alias": "dboExperiencia_Laboral"
+				}
+			],
+			"outputSchemas": [
+				[
+					{
+						"key": "ID_Experiencia",
+						"fullPath": [
+							"ID_Experiencia"
+						],
+						"type": "int",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "ID_Candidato",
+						"fullPath": [
+							"ID_Candidato"
+						],
+						"type": "int",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "Empresa",
+						"fullPath": [
+							"Empresa"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "Titulo_Puesto",
+						"fullPath": [
+							"Titulo_Puesto"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "Duracion",
+						"fullPath": [
+							"Duracion"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "Habilidades_Utilizadas",
+						"fullPath": [
+							"Habilidades_Utilizadas"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					}
+				]
+			],
+			"parentsValid": true,
+			"calculatedType": "",
+			"sqlQuery": "select * from dboExperiencia_Laboral",
+			"codeGenVersion": 2
+		},
+		"node-1733460580136": {
+			"nodeId": "node-1733460580136",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [],
+			"name": "CandidatesDB",
+			"generatedNodeName": "CandidatesDB_node1733460580136",
+			"classification": "DataSource",
+			"type": "SQLServer",
+			"isCatalog": false,
+			"database": "",
+			"table": "dbo.Candidatos",
+			"connectionName": "Sqlserver connection",
+			"connectionType": "sqlserver",
+			"redshiftTmpDir": "",
+			"outputSchemas": [
+				[
+					{
+						"key": "id_candidato",
+						"fullPath": [
+							"id_candidato"
+						],
+						"type": "int",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "nombre",
+						"fullPath": [
+							"nombre"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "email",
+						"fullPath": [
+							"email"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "telefono",
+						"fullPath": [
+							"telefono"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "direccion",
+						"fullPath": [
+							"direccion"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					}
+				]
+			],
+			"calculatedType": "",
+			"codeGenVersion": 2
+		},
+		"node-1733462916467": {
+			"nodeId": "node-1733462916467",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [],
+			"name": "WorkExperienceDB",
+			"generatedNodeName": "WorkExperienceDB_node1733462916467",
+			"classification": "DataSource",
+			"type": "SQLServer",
+			"isCatalog": false,
+			"database": "",
+			"table": "dbo.Experiencia_Laboral",
+			"connectionName": "Sqlserver connection",
+			"connectionType": "sqlserver",
+			"redshiftTmpDir": "",
+			"outputSchemas": null,
+			"calculatedType": "",
+			"codeGenVersion": 2
+		},
+		"node-1733463698278": {
+			"nodeId": "node-1733463698278",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [
+				"node-1733463091298"
+			],
+			"name": "Amazon S3",
+			"generatedNodeName": "AmazonS3_node1733463698278",
+			"classification": "DataSink",
+			"type": "S3",
+			"streamingBatchInterval": 100,
+			"format": "glueparquet",
+			"compression": "snappy",
+			"path": "s3://challenge-cvs-test-target",
+			"partitionKeys": [],
+			"schemaChangePolicy": {
+				"enableUpdateCatalog": true,
+				"updateBehavior": "UPDATE_IN_DATABASE",
+				"database": "cvs_challenge",
+				"table": "dbCandidate"
+			},
+			"updateCatalogOptions": "schemaAndPartitions",
+			"autoDataQuality": {
+				"isEnabled": true,
+				"evaluationContext": "EvaluateDataQuality_node1733460406505"
+			},
+			"calculatedType": "",
+			"codeGenVersion": 2
+		},
+		"node-1733462978624": {
+			"nodeId": "node-1733462978624",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [],
+			"name": "VacantsDB",
+			"generatedNodeName": "VacantsDB_node1733462978624",
+			"classification": "DataSource",
+			"type": "SQLServer",
+			"isCatalog": false,
+			"database": "",
+			"table": "dbo.Vacantes",
+			"connectionName": "Sqlserver connection",
+			"connectionType": "sqlserver",
+			"redshiftTmpDir": "",
+			"outputSchemas": [
+				[
+					{
+						"key": "id_vacante",
+						"fullPath": [
+							"id_vacante"
+						],
+						"type": "int",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "titulo_puesto",
+						"fullPath": [
+							"titulo_puesto"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "descripcion",
+						"fullPath": [
+							"descripcion"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "requisitos",
+						"fullPath": [
+							"requisitos"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					}
+				]
+			],
+			"calculatedType": "",
+			"codeGenVersion": 2
+		},
+		"node-1733463091298": {
+			"nodeId": "node-1733463091298",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [
+				"node-1733462847564",
+				"node-1733462954284"
+			],
+			"name": "CandidateInfo",
+			"generatedNodeName": "CandidateInfo_node1733463091298",
+			"classification": "Transform",
+			"type": "SqlCode",
+			"sqlAliases": [
+				{
+					"from": "node-1733462847564",
+					"alias": "dboCandidatos"
+				},
+				{
+					"from": "node-1733462954284",
+					"alias": "dboWorkExp"
+				}
+			],
+			"outputSchemas": [
+				[
+					{
+						"key": "ID_Candidato",
+						"fullPath": [
+							"ID_Candidato"
+						],
+						"type": "int",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "Nombre",
+						"fullPath": [
+							"Nombre"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "Email",
+						"fullPath": [
+							"Email"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "Telefono",
+						"fullPath": [
+							"Telefono"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "Direccion",
+						"fullPath": [
+							"Direccion"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "ID_Experiencia",
+						"fullPath": [
+							"ID_Experiencia"
+						],
+						"type": "int",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "Empresa",
+						"fullPath": [
+							"Empresa"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "Titulo_Puesto",
+						"fullPath": [
+							"Titulo_Puesto"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "Duracion",
+						"fullPath": [
+							"Duracion"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "Habilidades_Utilizadas",
+						"fullPath": [
+							"Habilidades_Utilizadas"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					}
+				]
+			],
+			"parentsValid": true,
+			"calculatedType": "",
+			"sqlQuery": "SELECT \r\n    c.ID_Candidato,\r\n    c.Nombre,\r\n    c.Email,\r\n    c.Telefono,\r\n    c.Direccion,\r\n    w.ID_Experiencia,\r\n    w.ID_Candidato,\r\n    w.Empresa,\r\n    w.Titulo_Puesto,\r\n    w.Duracion,\r\n    w.Habilidades_Utilizadas\r\nFROM dboCandidatos AS c\r\nINNER JOIN dboWorkExp AS w\r\n    ON c.ID_Candidato = w.ID_Candidato;",
+			"codeGenVersion": 2
+		}
+	},
+	"hasBeenSaved": false,
+	"usageProfileName": null
+}
